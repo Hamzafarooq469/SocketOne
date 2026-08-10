@@ -2,10 +2,11 @@
 # Dependencies
 node_modules/
 
-# Environment variables
+# Environment variables & secrets
 .env
 .env.*
 !.env.example
+backend/services/Firebase/firebaseCredentials.json
 
 # Build files
 dist/
