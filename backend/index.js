@@ -1,19 +1,30 @@
+const path = require('path')
+const dotenv = require('dotenv')
 
-const express = require("express")
-const dotenv = require("dotenv")
-const db = require('./config/db')
+dotenv.config({ path: path.join(__dirname, 'config', '.env') })
 
+const express = require('express')
+const cors = require('cors')
 
-dotenv.config({
-    path: "./config/.env"
-})
+require('./services/Firebase/firebaseAdmin')
 
 const app = express()
 
-app.use("/api/user/", require("./routes/userRoutes"))
+// Enable CORS for frontend origin before routes
+app.use(cors({
+  origin: ['http://localhost:5173', 'http://localhost:5174', 'http://localhost:3000'],
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}))
 
-PORT = process.env.PORT || 4000
+app.use(express.json())
+app.use(express.urlencoded({ extended: true }))
+
+app.use('/api/user', require('./routes/userRoutes'))
+
+const PORT = process.env.PORT || 3000
 
 app.listen(PORT, () => {
-    console.log(`Server is working on port:${PORT}`)
+  console.log(`Server is working on port:${PORT}`)
 })

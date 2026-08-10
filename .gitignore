@@ -7,6 +7,9 @@ node_modules/
 .env.*
 !.env.example
 backend/services/Firebase/firebaseCredentials.json
+frontend/src/Services/Firebase.js
+frontend/src/services/Firebase.js
+
 
 # Build files
 dist/
